@@ -14,10 +14,25 @@ public class Spawn : MonoBehaviour {
 	void Update () {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 instantiatePosition = Input.mousePosition;
-            Point = instantiatePosition;
-            GameObject newGameObject = Instantiate(Prefeb, Point, Quaternion.identity);
+            Debug.Log("Left mouse clicked");
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.name == "floor")
+                {
+                    Instantiate(Prefeb, hit.point, Quaternion.identity);
+                    print("My object is clicked by mouse");
+                }
+            }
         }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Vector3 instantiatePosition = Input.mousePosition;
+        //    Point = instantiatePosition;
+        //    GameObject newGameObject = Instantiate(Prefeb, Point, Quaternion.identity);
+        //}
     }
 }
 
