@@ -15,7 +15,7 @@ public class Scaling : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        scale.gameObject.GetComponent<Renderer>().material.color = Color.black;
+        
         if (Direct)
         {
             scale.transform.Translate(Vector3.forward * Time.deltaTime * speed);
