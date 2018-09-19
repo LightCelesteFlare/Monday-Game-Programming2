@@ -23,6 +23,9 @@ public class States : MonoBehaviour {
     // Next Var need to implement Safe [and Threatened]
     public float SafeDistanceCutoff = 5f;
 
+    // Threatened
+    public float TreatDistanceCutoff = 2f;
+
     // Next Var need to implement StrongerThanEnemy [and WeakerThanEnemy]
     public float strength = 100;
     // 
@@ -48,7 +51,11 @@ public class States : MonoBehaviour {
     //Transitions
     void EvadeEnemy()
     {
-
+        Vector3 p0 = transform.position;
+        Vector3 p1 = enemy.transform.position;
+        Vector3 newPos = transform.position + speed * Time.deltaTime * (p0 - p1).normalized;
+        //newPos.y = 0.5f;
+        transform.position = newPos;
         print("In Troll.EvadeEnemy");
     }
 
@@ -60,7 +67,8 @@ public class States : MonoBehaviour {
     void FollowPatrolPath()
     {
         nextWaypoint = CalculateNextWaypoint();
-        Vector3 p0 = Waypoints[currentWaypoint].transform.position;
+        //Vector3 p0 = Waypoints[currentWaypoint].transform.position;
+        Vector3 p0 = transform.position;
         Vector3 p1 = Waypoints[nextWaypoint].transform.position;
         Vector3 newPos = transform.position + speed * Time.deltaTime * (p1 - p0).normalized;
         transform.position = newPos;
@@ -86,7 +94,9 @@ public class States : MonoBehaviour {
 
     bool Threatened()
     {
-        return !Safe();
+        Vector3 E2T = transform.position - enemy.transform.position;
+        float dTE = E2T.magnitude;
+        return dTE < TreatDistanceCutoff ;
     }
     bool StrongerThanEnemy()
     {
@@ -96,6 +106,22 @@ public class States : MonoBehaviour {
     bool WeakerThanEnemy()
     {
         return !StrongerThanEnemy();
+    }
+
+    int FindIndexOfClosesWaypoint(Vector3 pos)
+    {
+        int idx = 1;
+        float dist = 1e10f;
+        for (int i = 0; i < Waypoints.Length; i++)
+        {
+            float dist_i = Vector3.Distance(pos, Waypoints[i].transform.position);
+            if (dist_i < dist)
+            {
+                dist = dist_i;
+                idx = i;
+            }
+        }
+        return idx;
     }
 
     void UpdateState()
@@ -108,6 +134,7 @@ public class States : MonoBehaviour {
 
                 if (Safe())
                 {
+
                     ChangeState(TrollState.Patrol);
                 }
 
