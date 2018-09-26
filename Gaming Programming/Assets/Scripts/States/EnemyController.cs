@@ -8,11 +8,15 @@ public class EnemyController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         BattleRating = Random.Range(50, 1000);
-        size = (BattleRating / 100f);
-        if (size >= 1)
+        size = (BattleRating / 200f);
+        if (size <= 1)
         {
             size = 1;
             Debug.Log("Too Small");
+        }
+        if (size >= 2.5)
+        {
+            this.gameObject.GetComponent<Renderer>().material.color = Random.ColorHSV(0f,0f,0f,0f,0f,0f,Random.Range(0f,5f),5f);
         }
         transform.localScale += new Vector3(size, size, size);
 	}

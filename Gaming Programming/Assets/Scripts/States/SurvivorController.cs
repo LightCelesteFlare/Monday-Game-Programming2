@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SurvivorController : MonoBehaviour {
+
+public class SurvivorController : MonoBehaviour { 
 
     public GameObject Survivor;
     public GameObject Enemy;
     public Level level;
     public ManageConfig conf;
     // Condition State
-    public enum SurvivorState { RunAway, Patrol, Attack, Wander, Group }; //Patrol is disabled
+    public enum SurvivorState { RunAway, Patrol, Attack, Wander}; //Patrol is disabled
     public SurvivorState currentState;
 
     // Waypoints (future feature)
@@ -36,9 +37,6 @@ public class SurvivorController : MonoBehaviour {
         return (currentWaypoint + 1) % Waypoints.Length;
     }
     */
-
-    // Vectors
-    public Vector3 velocity;
 
     // Stats
     public float health;
@@ -106,62 +104,6 @@ public class SurvivorController : MonoBehaviour {
         transform.position = newPos;
         print("In Survivor.Attack");
     }
-    //Vector3 Cohesion()
-    //{
-    //    Vector3 cohesionVector = new Vector3();
-    //    int countSurvivors = 0;
-    //    var neighbors = level.GetNeighbors(this, conf.cohesionRadius);
-    //    if (neighbors.Count == 0)
-    //        return cohesionVector;
-    //    foreach (var survivor in neighbors)
-    //    {
-    //        if(isInFOV(survivor.transform.position))
-    //        {
-    //            cohesionVector += survivor.transform.position;
-    //            countSurvivors++;
-    //        }
-    //    }
-    //    if (countSurvivors == 0)
-    //        return cohesionVector;
-    //    cohesionVector /= countSurvivors;
-    //    cohesionVector = cohesionVector - transform.position;
-    //    cohesionVector = Vector3.Normalize(cohesionVector);
-    //    return cohesionVector;
-    //}
-
-    //Vector3 Alignment()
-    //{
-    //    Vector3 alignVector = new Vector3();
-    //    var survivors = level.GetNeighbors(this, conf.alignmentRadius);
-    //    if (survivors.Count == 0)
-    //        return alignVector;
-    //    foreach (var survivor in survivors)
-    //    {
-    //        if (isInFOV(survivor.transform.position))
-    //            alignVector += survivor.velocity;
-    //    }
-    //    return alignVector.normalized;
-    //}
-    //Vector3 Separation()
-    //{
-    //    Vector3 separationVector = new Vector3();
-    //    var survivors = level.GetNeighbors(this, conf.separationRadius);
-    //    if (survivors.Count == 0)
-    //        return separationVector;
-    //    foreach (var survivor in survivors)
-    //    {
-    //        if (isInFOV(survivor.transform.position))
-    //            separationVector += survivor.velocity;
-    //    }
-    //    return separationVector.normalized;
-    //}
-    //virtual protected Vector3 Combine()
-    //{
-    //    Vector3 finalVec = conf.cohesionPriority * Cohesion() + conf.alignmentPriority * Alignment()
-    //        + conf.separationPriority * Separation();
-    //    return finalVec;
-    //}
-
     // Party/Grouping
     void Party()
     {
@@ -187,6 +129,7 @@ public class SurvivorController : MonoBehaviour {
         {
             transform.position += transform.forward * speed * Time.deltaTime;
         }
+        
     }
 
     // 0 - nothing | 1 - right | 2 - left
@@ -254,10 +197,7 @@ public class SurvivorController : MonoBehaviour {
         else
             return true;
     }
-    bool isInFOV(Vector3 vec)
-    {
-        return Vector3.Angle(this.velocity, vec - this.transform.position) <= conf.maxFOV;
-    }
+
     void UpdateState()
     {
         switch (currentState)
@@ -310,7 +250,10 @@ public class SurvivorController : MonoBehaviour {
                         }
                     }
                 }
-                ChangeState(SurvivorState.Group);
+                //if (!Target())
+                //{ 
+                //    ChangeState(SurvivorState.Group);
+                //}
                 break;
 
             case SurvivorState.Attack:
@@ -331,16 +274,17 @@ public class SurvivorController : MonoBehaviour {
                 }
 
                 break;
-            case SurvivorState.Group:
-                Party();
-                Debug.Log("SurvivorState.Group");
-                ChangeState(SurvivorState.Wander);
-                break;
+            //case SurvivorState.Group:
+            //    Party();
+            //    Debug.Log("SurvivorState.Group");
+            //    ChangeState(SurvivorState.Wander);
+            //    break;
 
         }//end switch
+    }   // end UpdateState
 
-    }
 }
+
 
 
 
