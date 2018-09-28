@@ -7,7 +7,7 @@ public class SurvivorController : MonoBehaviour {
 
     public GameObject Survivor;
     public GameObject Enemy;
-    public Level level;
+    public LevelVersion2 level;
     public ManageConfig conf;
     // Condition State
     public enum SurvivorState { RunAway, Patrol, Attack, Wander}; //Patrol is disabled
@@ -54,7 +54,7 @@ public class SurvivorController : MonoBehaviour {
         health = Random.Range(100, 140);
         attack = Random.Range(3, 12);
         armor = Random.Range(0, 4);
-
+        speed += Random.Range(1, 2);
         BattleRating = ((health / 2) + ((armor + attack) * 2));
 	}
 	
@@ -105,10 +105,6 @@ public class SurvivorController : MonoBehaviour {
         print("In Survivor.Attack");
     }
     // Party/Grouping
-    void Party()
-    {
-        //Combine(); 
-    }
 
     // TRGameDev
     void Wandering()
@@ -180,7 +176,7 @@ public class SurvivorController : MonoBehaviour {
 
     bool StrongerThanEnemy()
     {
-        return BattleRating > Enemy.GetComponent<EnemyController>().BattleRating;
+        return BattleRating < Enemy.GetComponent<EnemyController>().BattleRating;
     }
 
     bool WeakerThanEnemy()
@@ -234,21 +230,18 @@ public class SurvivorController : MonoBehaviour {
                 break;
                 */
             case SurvivorState.Wander:
-
                 Wandering();
-                if (Target())
-                {
                     if (ThreatLevel())
                     {
                         if (StrongerThanEnemy())
                         {
                             ChangeState(SurvivorState.Attack);
                         }
-                        else
+                        if (WeakerThanEnemy())
                         {
                             ChangeState(SurvivorState.RunAway);
                         }
-                    }
+
                 }
                 //if (!Target())
                 //{ 
@@ -261,6 +254,7 @@ public class SurvivorController : MonoBehaviour {
                 if (WeakerThanEnemy())
                 {
                     ChangeState(SurvivorState.RunAway);
+                    Debug.Log("I'm Running in S.Attack");
                 }
 
                 else
@@ -271,6 +265,7 @@ public class SurvivorController : MonoBehaviour {
                     {
                         ChangeState(SurvivorState.Wander);
                     }
+                    Debug.Log("I'm Attacking in S.Attack");
                 }
 
                 break;
@@ -282,7 +277,6 @@ public class SurvivorController : MonoBehaviour {
 
         }//end switch
     }   // end UpdateState
-
 }
 
 
