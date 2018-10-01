@@ -27,6 +27,11 @@ public class StateController : MonoBehaviour {
     // Next Var need to implement StrongerThanEnemy [and WeakerThanEnemy]
     public float strength = 100;
     // 
+    // Waypoint
+    public int CalculateNextWaypoint()
+    {
+        return (currentWaypoint + 1) % Waypoints.Length;
+    }
 
     public void Start()
     {
