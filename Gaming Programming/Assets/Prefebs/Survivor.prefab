@@ -117,10 +117,9 @@ MonoBehaviour:
   level: {fileID: 0}
   conf: {fileID: 0}
   currentState: 0
-  SafeDistanceCutoff: 10
-  TreatDistanceCutoff: 5
+  SafeDistanceCutoff: 15
+  TreatDistanceCutoff: 10
   Rotspeed: 100
-  velocity: {x: 0, y: 0, z: 0}
   health: 0
   attack: 0
   armor: 0

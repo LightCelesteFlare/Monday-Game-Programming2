@@ -8,11 +8,10 @@ public class EnemyController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         BattleRating = Random.Range(50, 1000);
-        size = (BattleRating / 200f);
-        if (size <= 1)
+
+        if (BattleRating <= 250)
         {
-            size = 1;
-            Debug.Log("Too Small");
+            this.gameObject.GetComponent<Renderer>().material.color = Random.ColorHSV(BattleRating, BattleRating);
         }
         if (size >= 2.5)
         {
