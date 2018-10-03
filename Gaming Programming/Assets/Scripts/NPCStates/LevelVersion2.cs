@@ -34,8 +34,8 @@ public class LevelVersion2 : MonoBehaviour {
                 GameObject Survivor = Instantiate(prefab, new Vector3(Random.Range(-spawnRadius, spawnRadius), 1, Random.Range(-spawnRadius, spawnRadius)),
                     Quaternion.identity) as GameObject;
             Survivor.transform.parent = transform;
-            Survivor.transform.localPosition = position;
-            Survivor.GetComponent<BoidFlocking>().SetController(gameObject);
+            //Survivor.transform.localPosition = position;
+            //Survivor.GetComponent<BoidFlocking>().SetController(gameObject);
             Survivors[i] = Survivor;
             }
     }

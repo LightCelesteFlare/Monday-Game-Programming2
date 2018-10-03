@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[CreateAssetMenu(menuName = "PluggableAI/Decisions/SafeDecision")]
 public class SafeDecision : Decision
 {
     public override bool Decide(StateController controller)

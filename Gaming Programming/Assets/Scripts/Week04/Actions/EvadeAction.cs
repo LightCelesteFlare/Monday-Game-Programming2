@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[CreateAssetMenu(menuName = "PluggableAI/Actions/Evade")]
 public class EvadeAction : Action
 {
     public override void Act(StateController controller)
