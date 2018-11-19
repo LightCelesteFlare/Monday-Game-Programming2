@@ -41,8 +41,8 @@ public class Week2 : MonoBehaviour {
         Vector3 v2u = v2.normalized; //v2 unit vector (v1 direction)
         Vector3 v2u_my = v2 / v2_magnitude;
 
-        Debug.Log("v2u=" + v1u);
-        Debug.Log("v2u_my =" + v1u_my);
+        Debug.Log("v2u=" + v2u);
+        Debug.Log("v2u_my =" + v2u_my);
 
         Debug.Log("v1.v2 =" + Vector3.Dot(v1, v2));
         Debug.Log("v2.v1=" + Vector3.Dot(v2, v1));
