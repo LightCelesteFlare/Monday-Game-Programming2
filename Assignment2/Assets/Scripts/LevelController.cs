@@ -31,7 +31,10 @@ public class LevelController : MonoBehaviour {
             {
                 Instantiate(Enemy, PosE.position, Quaternion.identity);
             }
+            if (counter <= 6) { 
             counter++;
+                waitTime -= .5f;
+            }
         }
     }
 }
