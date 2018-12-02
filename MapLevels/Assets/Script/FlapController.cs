@@ -14,6 +14,6 @@ public class FlapController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        this.transform.localScale = new Vector3(SXmin + dx / 2 + dx * Mathf.Sin(Time.fixedTime * flapperduration),0.1f,1.1f);
+        this.transform.localScale = new Vector3(SXmin + dx / 2 + dx * Mathf.Sin(Time.fixedTime * flapperduration),1.1f,0.3f);
 	}
 }

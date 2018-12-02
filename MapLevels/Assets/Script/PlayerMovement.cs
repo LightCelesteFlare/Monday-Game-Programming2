@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class PlayerMovement : NetworkBehaviour {
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-
+    public int counter = 4;
     // Use this for initialization
     void Start () {
 		
@@ -33,8 +33,9 @@ public class PlayerMovement : NetworkBehaviour {
     [Command]
     void CmdFire()
     {
-        // Create the Bullet from the Bullet Prefab
-        var bullet = (GameObject)Instantiate(
+
+            // Create the Bullet from the Bullet Prefab
+            var bullet = (GameObject)Instantiate(
             bulletPrefab,
             bulletSpawn.position,
             bulletSpawn.rotation);
@@ -44,6 +45,7 @@ public class PlayerMovement : NetworkBehaviour {
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, 2.0f);
+        
     }
 
     public override void OnStartLocalPlayer()
